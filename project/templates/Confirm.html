@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm</title>
+</head>
+<body>
+    <h1>{{an}}</h1>
+    <p>{{ad}}</p>
+    
+    <form method="POST" action="{% url 'in_loc' %}">
+        {% csrf_token %}
+        <input type="hidden" name="kitid" value="{{ kitid }}">
+        <input type="hidden" name="loc" value="{{ l_p }}">
+        <input type="hidden" name="uid" value="{{ uid }}">
+        <button type="submit" name="action" value="in">In</button>
+    </form>
+    
+    <form method="POST" action="{% url 'out_loc' %}">
+        {% csrf_token %}
+        <input type="hidden" name="kitid" value="{{ kitid }}">
+        <input type="hidden" name="loc" value="{{ l_p }}">
+        <input type="hidden" name="uid" value="{{ uid }}">
+        <button type="submit" name="action" value="out">Out</button>
+    </form>
+</body>
+</html>

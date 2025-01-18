@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UID Entry</title>
+</head>
+<body>
+    <form method="post" action="{% url 'UID' %}">
+        {% csrf_token %}
+        <label for="kitid">Kit ID:</label>
+        <input type="text" id="kitid" name="kitid" value="{{ kitid }}" readonly><br>
+        <label for="loc">Location:</label>
+        <input type="text" id="loc" name="loc" value="{{ l_p }}" readonly><br>
+        <label for="uid">UID:</label>
+        <input type="text" id="uid" name="uid" value="{{ uid }}" readonly><br>
+        <input type="submit" value="Confirm">
+    </form>
+</body>
+</html>

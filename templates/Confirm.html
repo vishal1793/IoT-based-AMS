@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: left; /* Left align the text contents */
+        }
+
+        .tab-container {
+            margin-top: 20px; /* Add some space above the buttons */
+            display: flex;
+            justify-content: center; /* Center align the buttons horizontally */
+        }
+
+        .tab {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Asset Details</h1>
+        <p><strong>UID:</strong> {{ uid }}</p>
+        <p><strong>Asset Code:</strong> {% if asset %} {{ asset.asset_code }} {% else %} N/A {% endif %}</p>
+        <p><strong>Asset Description:</strong> {% if asset %} {{ asset.asset_desc }} {% else %} N/A {% endif %}</p>
+        <p><strong>TPI inspection:</strong> {% if asset %} {{ asset.TPI_ins }} {% else %} N/A {% endif %}</p>
+        <p><strong>TPI Renewal:</strong> {% if asset %} {{ asset.TPI_ren }} {% else %} N/A {% endif %}</p>
+        
+        <div class="tab-container">
+            <form id="inForm" method="POST" action="{% url 'in_loc' %}">
+                {% csrf_token %}
+                <input type="hidden" name="kitid" value="{{ kitid }}">
+                <input type="hidden" name="loc" value="{{ loc }}">
+                <input type="hidden" name="uid" value="{{ uid }}">
+                <button type="button" class="tab" onclick="submitForm('in')">In</button>
+            </form>
+            
+            <form id="outForm" method="POST" action="{% url 'out_loc' %}">
+                {% csrf_token %}
+                <input type="hidden" name="kitid" value="{{ kitid }}">
+                <input type="hidden" name="loc" value="{{ loc }}">
+                <input type="hidden" name="uid" value="{{ uid }}">
+                <button type="button" class="tab" onclick="submitForm('out')">Out</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function submitForm(action) {
+            var form = action === 'in' ? document.getElementById('inForm') : document.getElementById('outForm');
+            form.submit();
+        }
+    </script>
+</body>
+</html>
